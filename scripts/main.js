@@ -4,8 +4,8 @@ Hooks.once("init", () => {
   console.log("Quick Minimal Monster Sheet for 5e | Initialized");
 
   Actors.registerSheet("dnd5e", QuickMinimalMonsterSheet, {
-    types: ["character", "npc"],
+    types: ["npc"],  // Monsters only
     makeDefault: false,
-    label: "QMMS.SheetLabel"
+    label: "QMMS.Sheet"
   });
 });

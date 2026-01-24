@@ -1,4 +1,27 @@
-<div class="qmms-sheet">
-    <h2>Quick Minimal Monster Sheet for 5e</h2>
-    <p>Placeholder content.</p>
-</div>
+<form class="qmms-sheet flexcol">
+  <header class="sheet-header flexrow">
+    <h1>{{actor.name}}</h1>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat">
+      <label>AC</label>
+      <input type="number" name="system.attributes.ac.value" value="{{qmms.ac}}" />
+    </div>
+
+    <div class="stat">
+      <label>HP</label>
+      <input type="number" name="system.attributes.hp.value" value="{{qmms.hp.value}}" />
+      / <input type="number" name="system.attributes.hp.max" value="{{qmms.hp.max}}" />
+    </div>
+
+    <div class="stat">
+      <label>CR</label>
+      <input type="number" name="system.details.cr" value="{{qmms.cr}}" />
+    </div>
+  </div>
+
+  <div class="freetext">
+    <textarea name="system.details.biography.value">{{qmms.biography}}</textarea>
+  </div>
+</form>
