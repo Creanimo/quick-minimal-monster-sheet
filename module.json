@@ -7,7 +7,7 @@
   "compatibleCoreVersion": "13",
   "author": "Ferdinand Engländer",
   "scripts": [
-    "scripts/main.js
+    "scripts/main.js"
   ],
   "styles": [
     "styles/qmms.css"
