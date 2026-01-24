@@ -3,14 +3,18 @@ export function createQuickMinimalMonsterSheetClass({
   templatePath = `modules/quick-minimal-monster-sheet-for-5e/templates/qmms-monster-sheet.hbs`
 } = {}) {
   const ActorSheetV2 = foundry?.applications?.sheets?.ActorSheetV2;
+  const HandlebarsApplicationMixin = foundry?.applications?.api?.HandlebarsApplicationMixin;
   if (!ActorSheetV2) {
     throw new Error(
       `${moduleId} | ActorSheetV2 is not available yet. ` +
       `Create this sheet class after Hooks.once("ready") (or later).`
     );
   }
+  if (!HandlebarsApplicationMixin) throw new Error(`${moduleId} | HandlebarsApplicationMixin not available yet.`);
 
-  return class QuickMinimalMonsterSheet extends ActorSheetV2 {
+  const Base = HandlebarsApplicationMixin(ActorSheetV2);
+
+  return class QuickMinimalMonsterSheet extends Base {
     static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
       id: `${moduleId}-sheet`,
       classes: ["dnd5e", "sheet", "actor", "qmms-sheet"],
