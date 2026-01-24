@@ -12,7 +12,9 @@
       "name": "Ferdinand Engländer"
     }
   ],
-  "esmodules": ["scripts/main.mjs"],
+  "esmodules": [
+    "scripts/main.mjs"
+  ],
   "styles": [
     "styles/qmms.css"
   ],
