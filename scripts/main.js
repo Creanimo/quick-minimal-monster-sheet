@@ -1,3 +1,11 @@
-Hooks.on("init", () => {
-    console.log("Quick Minimal Monster Sheet for 5e | Initialized");
+import { QuickMinimalMonsterSheet } from "./qmms-monster-sheet.js";
+
+Hooks.once("init", () => {
+  console.log("Quick Minimal Monster Sheet for 5e | Initialized");
+
+  Actors.registerSheet("dnd5e", QuickMinimalMonsterSheet, {
+    types: ["character", "npc"],
+    makeDefault: false,
+    label: "QMMS.SheetLabel"
+  });
 });
