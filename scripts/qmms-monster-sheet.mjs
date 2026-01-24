@@ -1,7 +1,5 @@
-import { ActorSheetV2 } from "foundry.applications.sheets.ActorSheetV2";
-
-export class QuickMinimalMonsterSheet extends ActorSheetV2 {
-  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+export class QuickMinimalMonsterSheet extends globalThis.ActorSheetV2 {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS ?? {}, {
     template: "modules/quick-minimal-monster-sheet-for-5e/templates/qmms-monster-sheet.hbs",
     classes: ["qmms-sheet"],
     width: 800,
@@ -9,7 +7,7 @@ export class QuickMinimalMonsterSheet extends ActorSheetV2 {
   });
 
   async _prepareContext(options) {
-    const context = await super._prepareContext(options);
+    const context = await super._prepareContext?.(options) ?? {};
 
     context.qmms = {
       ac: foundry.utils.getProperty(this.actor, "system.attributes.ac.value") ?? 0,
@@ -23,6 +21,7 @@ export class QuickMinimalMonsterSheet extends ActorSheetV2 {
 
     return context;
   }
+
 
   async _updateObject(event, formData) {
     const updateData = {
