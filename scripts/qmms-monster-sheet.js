@@ -1,5 +1,3 @@
-// scripts/qmms-monster-sheet.js
-
 export class QuickMinimalMonsterSheet extends ActorSheetV2 {
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
     template: "modules/quick-minimal-monster-sheet-for-5e/templates/qmms-monster-sheet.hbs",
