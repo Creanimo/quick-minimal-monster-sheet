@@ -48,7 +48,7 @@ export function createQuickMinimalMonsterSheetClass({
       tag: "form",
       form: {
         handler: onSubmitForm,
-        submitOnChange: false,
+        submitOnChange: true,
         closeOnSubmit: false
       },
 
