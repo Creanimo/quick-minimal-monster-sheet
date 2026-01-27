@@ -108,12 +108,6 @@ export function createQuickMinimalMonsterSheetClass({
             root.querySelectorAll(autosaveSelector).forEach(el => {
                 el.addEventListener("change", () => this.submit());
             });
-
-            // Optional: Save when prose-mirror changes.
-            // (Exact event name can vary; if it doesn’t fire, you can just rely on a Done button or manual submit.)
-            const pm = root.querySelector('prose-mirror[name="system.details.biography.value"]');
-            pm?.addEventListener("change", () => this.submit());
-            pm?.addEventListener("input", () => this.submit());
         }
     };
 }
