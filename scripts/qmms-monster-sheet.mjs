@@ -12,7 +12,7 @@ export function createQuickMinimalMonsterSheetClass({
         const data = formData?.object ?? formData;
 
         const updateData = {
-            "actor.name": foundry.utils.getProperty(data, "name"),
+            "name": foundry.utils.getProperty(data, "name"),
             "system.attributes.ac.value": foundry.utils.getProperty(data, "system.attributes.ac.value"),
             "system.attributes.hp.value": foundry.utils.getProperty(data, "system.attributes.hp.value"),
             "system.attributes.hp.max": foundry.utils.getProperty(data, "system.attributes.hp.max"),
