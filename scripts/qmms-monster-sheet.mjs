@@ -9,7 +9,6 @@ export function createQuickMinimalMonsterSheetClass({
     if (!HandlebarsApplicationMixin) throw new Error(`${moduleId} | HandlebarsApplicationMixin not available. Create the class after Hooks.once("ready").`);
 
 
-
     async function onSubmitForm(event, form, formData) {
         const data = formData?.object ?? formData;
 
@@ -155,13 +154,15 @@ export function createQuickMinimalMonsterSheetClass({
                 });
             });
 
-            const pmSaveButtons = root.querySelectorAll('prose-mirror button[data-action="save"]');
-            pmSaveButtons.forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    // Let Save toggle to preview first, then submit
-                    setTimeout(() => this.submit(), 0);
-                });
-            });
+            // Catch ProseMirror "save" event (fires on Save button)
+            const pm = root.querySelector('prose-mirror[name="system.details.biography.value"]');
+            if (pm) {
+                pm.addEventListener("save", (event) => {
+                    console.log("ProseMirror saved!", pm.internals.value);
+                    // Trigger your autosave
+                    this.submit({preventClose: true, preventRender: false});
+                }, {once: false});  // Reuse across re-renders
+            }
 
             root.querySelector(".qmms__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
         }
