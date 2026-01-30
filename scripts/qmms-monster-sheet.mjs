@@ -129,7 +129,8 @@ export function createQuickMinimalMonsterSheetClass({
             ].join(",");
 
             root.querySelectorAll(autosaveSelector).forEach(input => {
-                input.addEventListener("change", () => this.submit())
+                input.addEventListener("change", () => this.submit());
+                input.addEventListener("blur", () => this.submit());
             });
 
             const autosaveWithMathSelector = [
