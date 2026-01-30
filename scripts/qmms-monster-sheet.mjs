@@ -128,7 +128,7 @@ export function createQuickMinimalMonsterSheetClass({
                 'input[name="actor.name"]',
             ].join(",");
 
-            root.querySelectorAll(autosaveWithMathSelector).forEach(input => {
+            root.querySelectorAll(autosaveSelector).forEach(input => {
                 input.addEventListener("change", () => this.submit())
             });
 
