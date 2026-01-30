@@ -155,6 +155,14 @@ export function createQuickMinimalMonsterSheetClass({
                 });
             });
 
+            const pmSaveButtons = root.querySelectorAll('prose-mirror button[data-action="save"]');
+            pmSaveButtons.forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    // Let Save toggle to preview first, then submit
+                    setTimeout(() => this.submit(), 0);
+                });
+            });
+
             root.querySelector(".qmms__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
         }
     };
