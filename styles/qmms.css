@@ -1,6 +1,6 @@
 .qmms {
     input {
-        all: revert;
+        height: auto;
     }
 
     .qmms__header {
