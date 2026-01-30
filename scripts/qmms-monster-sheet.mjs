@@ -8,6 +8,8 @@ export function createQuickMinimalMonsterSheetClass({
     if (!ActorSheetV2) throw new Error(`${moduleId} | ActorSheetV2 not available. Create the class after Hooks.once("ready").`);
     if (!HandlebarsApplicationMixin) throw new Error(`${moduleId} | HandlebarsApplicationMixin not available. Create the class after Hooks.once("ready").`);
 
+
+
     async function onSubmitForm(event, form, formData) {
         const data = formData?.object ?? formData;
 
@@ -100,6 +102,18 @@ export function createQuickMinimalMonsterSheetClass({
             };
 
             return context;
+        }
+
+        // Add Prose-Mirror Field to formData
+        _getFormData(options) {
+            const fd = super._getFormData(options);
+
+            const biographyEl = this.element?.querySelector('prose-mirror[name="system.details.biography.value"]');
+            if (biographyEl?.proseMirrorEditor) {
+                fd.set("system.details.biography.value", biographyEl.proseMirrorEditor.getContent());
+            }
+
+            return fd;
         }
 
         /**
