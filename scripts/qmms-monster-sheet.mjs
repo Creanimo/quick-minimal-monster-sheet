@@ -125,7 +125,7 @@ export function createQuickMinimalMonsterSheetClass({
             if (!root) return;
 
             const autosaveSelector = [
-                'input[name="actor.name"]',
+                'input[name="name"]',
             ].join(",");
 
             root.querySelectorAll(autosaveSelector).forEach(input => {
