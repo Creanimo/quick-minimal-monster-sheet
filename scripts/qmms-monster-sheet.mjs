@@ -118,6 +118,8 @@ export function createQuickMinimalMonsterSheetClass({
             root.querySelectorAll(autosaveSelector).forEach(el => {
                 el.addEventListener("change", () => this.submit());
             });
+
+            root.querySelector(".qmms__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
         }
     };
 }

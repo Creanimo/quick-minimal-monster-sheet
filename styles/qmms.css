@@ -1,4 +1,7 @@
 .qmms {
+    input {
+        all: revert;
+    }
     .qmms__header {
         display: grid;
         grid-template-columns: 200px 1fr 100px;
@@ -25,11 +28,11 @@
             .qmms__health__bar {
                 width: 100%;
                 height: 50px;
-                color: darkgreen;
+                background-color: darkgreen;
             }
             .qmms__health__bar__fill {
                 height: 50px;
-                color: gray;
+                background-color: gray;
             }
         }
     }
