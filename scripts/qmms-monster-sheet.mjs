@@ -47,7 +47,7 @@ export function createQuickMinimalMonsterSheetClass({
                 submitOnChange: false,
                 closeOnSubmit: false
             },
-            position: {width: 520, height: 720}
+            position: {width: auto, height: auto}
         });
 
         async _prepareContext(options) {
@@ -56,12 +56,13 @@ export function createQuickMinimalMonsterSheetClass({
             const actor = this.document;
             const system = actor.system ?? {};
 
+            const actorName = foundry.utils.getProperty(system, "details.name.value");
+
             const biography =
                 foundry.utils.getProperty(system, "details.biography.value") ??
                 foundry.utils.getProperty(system, "details.biography") ??
                 "";
 
-            // Enriched preview HTML for inline rolls, links, etc. [web:229]
             const TextEditorImpl = foundry.applications.ux.TextEditor.implementation;
 
             let biographyEnriched = biography;
@@ -77,11 +78,20 @@ export function createQuickMinimalMonsterSheetClass({
                 console.warn(`${moduleId} | Biography enrichment failed`, err);
             }
 
+            const currentHp = foundry.utils.getProperty(system, "attributes.hp.value") ?? 0;
+            const maxHp = foundry.utils.getProperty(system, "attributes.hp.max") ?? 1;
+            const percentageHP = Math.max(
+                0,
+                Math.min(100, (currentHp / maxHp) * 100)
+            );
+
             context.qmms = {
+                name: actorName,
                 ac: foundry.utils.getProperty(system, "attributes.ac.value") ?? 0,
                 hp: {
-                    value: foundry.utils.getProperty(system, "attributes.hp.value") ?? 0,
-                    max: foundry.utils.getProperty(system, "attributes.hp.max") ?? 1
+                    value: currentHp,
+                    max: maxHp,
+                    percentage: percentageHP,
                 },
                 cr: foundry.utils.getProperty(system, "details.cr") ?? "",
                 biography,

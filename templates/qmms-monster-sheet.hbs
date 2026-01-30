@@ -1,33 +1,27 @@
-<div class="qmms-sheet flexcol">
-  <header class="sheet-header flexrow">
-    <h1>{{actor.name}}</h1>
-  </header>
-
-  <div class="stats-grid">
-    <div class="stat">
-      <label>AC</label>
-      <input type="number" name="system.attributes.ac.value" value="{{qmms.ac}}" />
+<div class="qmms flexcol">
+    <header class="qmms__header">
+        <h1 class="qmms__name">{{qmms.name}}</h1>
+        <div class="qmms__AC">
+            <label>AC<input type="number" name="system.attributes.ac.value" value="{{qmms.ac}}"/></label>
+        </div>
+        <div class="qmms__CR">
+            <label>CR<input type="number" name="system.details.cr" value="{{qmms.cr}}"/></label>
+        </div>
+        <div class="qmms__health">
+            <label>Current HP<input type="number" name="system.attributes.hp.value" value="{{qmms.hp.value}}"/></label>
+            <label>Max HP<input type="number" name="system.attributes.hp.max" value="{{qmms.hp.max}}"/></label>
+            <div class="qmms__health__bar">
+                <div class="qmms__health__bar__fill" style="width: {{qmm.hp.percentage}}%;"></div>
+            </div>
+        </div>
+    </header>
+    <div class="qmms__freetext">
+        <prose-mirror
+                name="system.details.biography.value"
+                value="{{qmms.biography}}"
+                toggled
+        >
+            {{{qmms.biographyEnriched}}}
+        </prose-mirror>
     </div>
-
-    <div class="stat">
-      <label>HP</label>
-      <input type="number" name="system.attributes.hp.value" value="{{qmms.hp.value}}" />
-      / <input type="number" name="system.attributes.hp.max" value="{{qmms.hp.max}}" />
-    </div>
-
-    <div class="stat">
-      <label>CR</label>
-      <input type="number" name="system.details.cr" value="{{qmms.cr}}" />
-    </div>
-  </div>
-
-  <div class="freetext">
-    <prose-mirror
-      name="system.details.biography.value"
-      value="{{qmms.biography}}"
-      toggled
-    >
-      {{{qmms.biographyEnriched}}}
-    </prose-mirror>
-  </div>
 </div>
