@@ -40,7 +40,7 @@ export function createQuickMinimalMonsterSheetClass({
 
         static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
             id: `${moduleId}-sheet`,
-            classes: ["dnd5e", "sheet", "actor", "qmms-sheet"],
+            classes: ["sheet", "actor", "qmms"],
             tag: "form",
             form: {
                 handler: onSubmitForm,
@@ -56,7 +56,7 @@ export function createQuickMinimalMonsterSheetClass({
             const actor = this.document;
             const system = actor.system ?? {};
 
-            const actorName = foundry.utils.getProperty(system, "details.name.value");
+            const actorName = foundry.utils.getProperty(actor, "name");
 
             const biography =
                 foundry.utils.getProperty(system, "details.biography.value") ??
