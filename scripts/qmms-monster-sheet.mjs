@@ -108,16 +108,14 @@ export function createQuickMinimalMonsterSheetClass({
             expr = expr.trim();
 
             if (/^[+-]?\d+(\.\d+)?$/.test(expr)) {
-                return String(expr);
+                return Number(expr);
             }
 
-            // Match all numbers with their sign, e.g. "30-10+5" → ["30", "-10", "+5"]
             const terms = expr.match(/[+-]?\d+(\.\d+)?/g);
             if (!terms) throw new Error("Invalid expression: " + expr);
 
-            return String(terms.reduce((sum, term) => sum + Number(term), 0));
+            return terms.reduce((sum, term) => sum + Number(term), 0);
         }
-
 
         _onRender(context, options) {
             super._onRender?.(context, options);
