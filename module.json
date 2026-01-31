@@ -15,7 +15,9 @@
   "esmodules": [
     "scripts/main.mjs"
   ],
-  "styles": ["styles/qmms5e.css"],
+  "styles": [
+    "styles/qmms5e.css"
+  ],
   "manifest": "https://raw.github.com/Creanimo/quick-minimal-monster-sheet-for-5e/main/module.json",
   "download": "https://github.com/Creanimo/quick-minimal-monster-sheet-for-5e/releases/latest/download/module.zip"
 }
