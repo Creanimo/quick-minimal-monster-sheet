@@ -41,7 +41,7 @@
         &.toggled .qmms5e__freetext__edit-toggle__save-text {
             display: inline;
         }
-        &:not(.toggled).qmms5e__freetext__edit-toggle__save-text {
+        &:not(.toggled) .qmms5e__freetext__edit-toggle__save-text {
             display: none;
         }
     }
