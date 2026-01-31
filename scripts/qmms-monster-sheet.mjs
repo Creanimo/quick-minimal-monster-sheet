@@ -162,7 +162,7 @@ export function createQuickMinimalMonsterSheetClass({
                 }, {once: false});  // Reuse across re-renders
             }
 
-            root.querySelector(".qmms5e__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
+            root.querySelector(".qmms5e__health__bar__fill").style.width = context.qmms5e.hp.percentage + "%";
         }
     };
 }
