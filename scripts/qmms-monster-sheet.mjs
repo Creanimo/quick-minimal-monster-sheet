@@ -160,7 +160,7 @@ export function createQuickMinimalMonsterSheetClass({
 
             // Catch ProseMirror "save" event (fires on Save button)
             const pm = root.querySelector('prose-mirror[name="system.details.biography.value"]');
-            const toggleBtn = root.querySelector('.qmm5e__freetext__edit-toggle');
+            const toggleBtn = root.querySelector('.qmms5e__freetext__edit-toggle');
             if (pm) {
                 this._updateToggleButton(toggleBtn, pm.isOpen);
 
