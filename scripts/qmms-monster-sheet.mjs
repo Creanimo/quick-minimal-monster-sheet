@@ -164,13 +164,10 @@ export function createQuickMinimalMonsterSheetClass({
             if (pm) {
                 this._updateToggleButton(toggleBtn, pm.isOpen);
 
-                toggleBtn.addEventListener("click", (event) => {
-                    if (pm.isOpen) {
-                        pm.save();  // Triggers form submit via existing listener
-                    } else {
-                        pm.open();  // Opens editor
-                    }
+                toggleBtn.addEventListener("click", () => {
+                    pm.toggleAttribute("open");
                 });
+
 
                 ["open", "close"].forEach(eventType => {
                     pm.addEventListener(eventType, () => {
