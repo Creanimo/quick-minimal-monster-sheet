@@ -10,7 +10,7 @@ export function transformInlineRollShorthands(text) {
 
     // 1. Split on existing [[...]] so we don't touch them
     const parts = [];
-    const regex = /\[\[(?:[^\]]|\](?!\]))*?\]\]/g; // matches [[...]] non-greedily
+    const regex = /\[\[(?:[^\]]|\](?!\]))*?\]\]/g;
     let lastIndex = 0;
     let match;
 
@@ -45,16 +45,6 @@ export function transformPlainSegment(segment) {
     let result = segment;
 
     // Long form: {N?}d{F}{op?}{M?}
-    // - N: optional digits
-    // - F: required digits
-    // - op: + or -, no spaces
-    // - M: digits
-    //
-    // We capture:
-    //   1: optional leading N (digits)
-    //   2: faces F
-    //   3: operator + or - (optional)
-    //   4: modifier M (optional)
     const dicePattern = /(?<!\w)(\d*)d(\d+)([+-](\d+))?(?!\w)/g;
 
     result = result.replace(dicePattern, (match, nStr, faces, opMod, modStr) => {
@@ -64,12 +54,9 @@ export function transformPlainSegment(segment) {
     });
 
     // Short form: +M or -M → 1d20+M or 1d20-M
-    // Avoid matching things like "++" or "+-" by requiring digits.
-    const shortPattern = /(?<![\w\]])([+-])(\d+)(?!\w)/g;
+    const shortPattern = /(?<![ \w\]])([+-])(\d+)(?!\w)/g;
 
     result = result.replace(shortPattern, (match, sign, num) => {
-        // To avoid rewriting part of a larger dice or roll command, re-check context if desired.
-        // For now we trust the boundaries from the regex.
         return `[[/roll 1d20${sign}${num}]]`;
     });
 

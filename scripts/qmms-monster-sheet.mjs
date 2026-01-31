@@ -14,7 +14,6 @@ export function createQuickMinimalMonsterSheetClass({
     async function onSubmitForm(event, form, formData) {
         const data = formData?.object ?? formData;
 
-        // Transform biography field **here** before actor update
         const biographyRaw = foundry.utils.getProperty(data, "system.details.biography.value");
         if (biographyRaw !== undefined) {
             const transformed = transformInlineRollShorthands(biographyRaw);
