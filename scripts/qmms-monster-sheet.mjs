@@ -42,7 +42,7 @@ export function createQuickMinimalMonsterSheetClass({
 
         static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
             id: `${moduleId}-sheet`,
-            classes: ["sheet", "actor", "qmms"],
+            classes: ["sheet", "actor", "qmms5e"],
             tag: "form",
             form: {
                 handler: onSubmitForm,
@@ -87,7 +87,7 @@ export function createQuickMinimalMonsterSheetClass({
                 Math.min(100, (currentHp / maxHp) * 100)
             );
 
-            context.qmms = {
+            context.qmms5e = {
                 name: actorName,
                 ac: foundry.utils.getProperty(system, "attributes.ac.value") ?? 0,
                 hp: {
@@ -162,7 +162,7 @@ export function createQuickMinimalMonsterSheetClass({
                 }, {once: false});  // Reuse across re-renders
             }
 
-            root.querySelector(".qmms__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
+            root.querySelector(".qmms5e__health__bar__fill").style.width = context.qmms.hp.percentage + "%";
         }
     };
 }

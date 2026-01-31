@@ -1,17 +1,17 @@
 <div class="qmms5e">
     <header class="qmms5e__header">
-        <h1 class="qmms5e__name"><label>Name</label><input type="text" name="name" value="{{qmms.name}}"/></h1>
+        <h1 class="qmms5e__name"><label>Name</label><input type="text" name="name" value="{{qmms5e.name}}"/></h1>
         <div class="qmms5e__AC">
-            <label>AC</label><input type="text" name="system.attributes.ac.value" value="{{qmms.ac}}"/>
+            <label>AC</label><input type="text" name="system.attributes.ac.value" value="{{qmms5e.ac}}"/>
         </div>
         <div class="qmms5e__CR">
-            <label>CR</label><input type="text" name="system.details.cr" value="{{qmms.cr}}"/>
+            <label>CR</label><input type="text" name="system.details.cr" value="{{qmms5e.cr}}"/>
         </div>
         <div class="qmms5e__health">
             <fieldset>
                 <legend>HP</legend>
-                <label>Current HP</label><input type="text" name="system.attributes.hp.value" value="{{qmms.hp.value}}"/>
-                <label>Max HP</label><input type="text" name="system.attributes.hp.max" value="{{qmms.hp.max}}"/>
+                <label>Current HP</label><input type="text" name="system.attributes.hp.value" value="{{qmms5e.hp.value}}"/>
+                <label>Max HP</label><input type="text" name="system.attributes.hp.max" value="{{qmms5e.hp.max}}"/>
             </fieldset>
             <div class="qmms5e__health__bar">
                 <div class="qmms5e__health__bar__fill"></div>
@@ -21,11 +21,11 @@
     <div class="qmms5e__freetext">
         <prose-mirror
                 name="system.details.biography.value"
-                value="{{qmms.biography}}"
+                value="{{qmms5e.biography}}"
                 form="quick-minimal-monster-sheet-for-5e-sheet"
                 toggled
         >
-            {{{qmms.biographyEnriched}}}
+            {{{qmms5e.biographyEnriched}}}
         </prose-mirror>
     </div>
 </div>
