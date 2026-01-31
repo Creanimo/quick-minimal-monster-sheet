@@ -52,6 +52,10 @@ export function createQuickMinimalMonsterSheetClass({
             position: {width: 600, height: 800}
         });
 
+        _updateToggleButton(btn, isOpen) {
+            btn.classList.toggle("toggled", isOpen);
+        }
+
         async _prepareContext(options) {
             const context = await super._prepareContext(options);
 
@@ -156,7 +160,24 @@ export function createQuickMinimalMonsterSheetClass({
 
             // Catch ProseMirror "save" event (fires on Save button)
             const pm = root.querySelector('prose-mirror[name="system.details.biography.value"]');
+            const toggleBtn = root.querySelector('.qmm5e__freetext__edit-toggle');
             if (pm) {
+                this._updateToggleButton(toggleBtn, pm.isOpen);
+
+                toggleBtn.addEventListener("click", (event) => {
+                    if (pm.isOpen) {
+                        pm.dispatchEvent(new CustomEvent("save"));  // Triggers form submit via existing listener
+                    } else {
+                        pm.dispatchEvent(new CustomEvent("open"));  // Opens editor
+                    }
+                });
+
+                ["open", "close"].forEach(eventType => {
+                    pm.addEventListener(eventType, () => {
+                        this._updateToggleButton(toggleBtn, pm.isOpen);
+                    }, {once: false});
+                });
+
                 pm.addEventListener("save", (event) => {
                     this.submit({preventClose: true, preventRender: false});
                 }, {once: false});  // Reuse across re-renders
