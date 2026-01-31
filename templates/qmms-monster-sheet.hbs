@@ -1,24 +1,24 @@
-<div class="qmms">
-    <header class="qmms__header">
-        <h1 class="qmms__name"><label>Name</label><input type="text" name="name" value="{{qmms.name}}"/></h1>
-        <div class="qmms__AC">
+<div class="qmms5e">
+    <header class="qmms5e__header">
+        <h1 class="qmms5e__name"><label>Name</label><input type="text" name="name" value="{{qmms.name}}"/></h1>
+        <div class="qmms5e__AC">
             <label>AC</label><input type="text" name="system.attributes.ac.value" value="{{qmms.ac}}"/>
         </div>
-        <div class="qmms__CR">
+        <div class="qmms5e__CR">
             <label>CR</label><input type="text" name="system.details.cr" value="{{qmms.cr}}"/>
         </div>
-        <div class="qmms__health">
+        <div class="qmms5e__health">
             <fieldset>
                 <legend>HP</legend>
                 <label>Current HP</label><input type="text" name="system.attributes.hp.value" value="{{qmms.hp.value}}"/>
                 <label>Max HP</label><input type="text" name="system.attributes.hp.max" value="{{qmms.hp.max}}"/>
             </fieldset>
-            <div class="qmms__health__bar">
-                <div class="qmms__health__bar__fill"></div>
+            <div class="qmms5e__health__bar">
+                <div class="qmms5e__health__bar__fill"></div>
             </div>
         </div>
     </header>
-    <div class="qmms__freetext">
+    <div class="qmms5e__freetext">
         <prose-mirror
                 name="system.details.biography.value"
                 value="{{qmms.biography}}"
