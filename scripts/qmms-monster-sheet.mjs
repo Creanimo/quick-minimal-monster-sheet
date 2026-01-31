@@ -12,19 +12,17 @@ export function createQuickMinimalMonsterSheetClass({
 
 
     async function onSubmitForm(event, form, formData) {
-        const data = formData?.object ?? formData;
-
-        const biographyRaw = data.get("system.details.biography.value") ??
-            foundry.utils.getProperty(data, "system.details.biography.value");
-
-        if (biographyRaw !== undefined && biographyRaw !== "") {
-            console.log("Transforming:", biographyRaw);
-            const transformed = transformInlineRollShorthands(biographyRaw);
-            console.log("→", transformed);
-
-            data.set("system.details.biography.value", transformed);
+        const pm = form?.querySelector('prose-mirror[name="system.details.biography.value"]');
+        if (pm?.value) {
+            const raw = pm.value.trim();
+            if (raw) {
+                const transformed = transformInlineRollShorthands(raw);
+                pm.value = transformed;  // Writes back to PM internals
+                console.log(`${moduleId} | PM transformed:`, raw, '→', transformed);
+            }
         }
 
+        const data = formData?.object ?? formData;
         const updateData = {
             "name": foundry.utils.getProperty(data, "name"),
             "system.attributes.ac.value": foundry.utils.getProperty(data, "system.attributes.ac.value"),
