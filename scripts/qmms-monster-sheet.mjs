@@ -166,9 +166,9 @@ export function createQuickMinimalMonsterSheetClass({
 
                 toggleBtn.addEventListener("click", (event) => {
                     if (pm.isOpen) {
-                        pm.dispatchEvent(new CustomEvent("save"));  // Triggers form submit via existing listener
+                        pm.save();  // Triggers form submit via existing listener
                     } else {
-                        pm.dispatchEvent(new CustomEvent("open"));  // Opens editor
+                        pm.open();  // Opens editor
                     }
                 });
 

@@ -35,13 +35,13 @@
         }
     }
     .qmms5e__freetext__edit-toggle {
-        &.toggled .qmm5e__freetext__edit-toggle__edit-text {
+        &.toggled .qmms5e__freetext__edit-toggle__edit-text {
             display: none;
         }
-        &.toggled .qmm5e__freetext__edit-toggle__save-text {
-            display: none;
+        &.toggled .qmms5e__freetext__edit-toggle__save-text {
+            display: inline;
         }
-        &:not(.toggled).qmm5e__freetext__edit-toggle__save-text {
+        &:not(.toggled).qmms5e__freetext__edit-toggle__save-text {
             display: none;
         }
     }
