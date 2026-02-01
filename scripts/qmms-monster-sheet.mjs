@@ -76,6 +76,18 @@ export function createQuickMinimalMonsterSheetClass({
             position: {width: 600, height: 800}
         });
 
+        constructor(options) {
+            super(options);
+
+            // ✅ Force re-render on actor updates
+            Hooks.on("updateActor", (actor, changes, options, userId) => {
+                if (actor === this.document && this.rendered) {
+                    console.log("🔔 Actor updated, re-rendering", changes);
+                    this.render(false);  // Re-render without forcing position change
+                }
+            });
+        }
+
         _updateToggleButton(btn, isOpen) {
             btn.classList.toggle("toggled", isOpen);
         }
