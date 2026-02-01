@@ -18,9 +18,13 @@ export function createQuickMinimalMonsterSheetClass({
 
         if (biographyRaw !== undefined && biographyRaw !== "") {
             const transformed = transformInlineRollShorthands(biographyRaw);
-   
+
             if (transformed !== biographyRaw) {
-                foundry.utils.setProperty(data, "system.details.biography.value", transformed);
+                if (data["system.details.biography.value"] !== undefined) {
+                    data["system.details.biography.value"] = transformed;
+                } else if (data.system?.details?.biography) {
+                    data.system.details.biography.value = transformed;
+                }
                 console.log(`✅ FormData updated:`, biographyRaw, '→', transformed);
             }
         }
