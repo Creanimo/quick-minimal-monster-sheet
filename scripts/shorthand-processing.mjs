@@ -16,13 +16,13 @@ export function transformInlineRollShorthands(text) {
 
     while ((match = regex.exec(text)) !== null) {
         if (match.index > lastIndex) {
-            parts.push({ type: "plain", text: text.slice(lastIndex, match.index) });
+            parts.push({type: "plain", text: text.slice(lastIndex, match.index)});
         }
-        parts.push({ type: "inline", text: match[0] });
+        parts.push({type: "inline", text: match[0]});
         lastIndex = regex.lastIndex;
     }
     if (lastIndex < text.length) {
-        parts.push({ type: "plain", text: text.slice(lastIndex) });
+        parts.push({type: "plain", text: text.slice(lastIndex)});
     }
 
     // 2. Transform only the plain parts
@@ -44,20 +44,16 @@ export function transformPlainSegment(segment) {
 
     let result = segment;
 
-    // Long form: {N?}d{F}{op?}{M?}
-    const dicePattern = /(?<!\w)(\d*)d(\d+)([+-](\d+))?(?!\w)/g;
-
-    result = result.replace(dicePattern, (match, nStr, faces, opMod, modStr) => {
-        const n = nStr && nStr.length ? nStr : "1";
-        const formula = opMod ? `${n}d${faces}${opMod}` : `${n}d${faces}`;
-        return `[[/roll ${formula}]]`;
-    });
-
-    // Short form: +M or -M → 1d20+M or 1d20-M
-    const shortPattern = /(?<![ \w\]])([+-])(\d+)(?!\w)/g;
-
+    const shortPattern = /(?<![\w\]])([+-])(\d+)(?!\w)/g;
     result = result.replace(shortPattern, (match, sign, num) => {
         return `[[/roll 1d20${sign}${num}]]`;
+    });
+
+    const dicePattern = /(?<!\w)(\d*)d(\d+)([+-]\d+)?(?!\w)/g;
+    result = result.replace(dicePattern, (match, nStr, faces, opMod) => {
+        const n = nStr || "1";
+        const formula = opMod ? `${n}d${faces}${opMod}` : `${n}d${faces}`;
+        return `[[/roll ${formula}]]`;
     });
 
     return result;
