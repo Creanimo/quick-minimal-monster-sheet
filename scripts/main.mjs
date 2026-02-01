@@ -9,16 +9,15 @@ Hooks.once("ready", () => {
         return;
     }
 
-    // Create configuration instance
     const config = new QMMSDnd5eConfig({
         moduleId: "quick-minimal-monster-sheet-for-5e",
         templatePath: "modules/quick-minimal-monster-sheet-for-5e/templates/qmms-monster-sheet.hbs"
     });
 
-    // Create sheet class using configuration
     const QuickMinimalMonsterSheet = createQuickMinimalMonsterSheetClass({
         moduleId: config.getModuleId(),
-        templatePath: config.getTemplatePath()
+        templatePath: config.getTemplatePath(),
+        config: config,
     });
 
     const ActorsCollection = foundry.documents.collections.Actors;
@@ -36,4 +35,3 @@ Hooks.once("ready", () => {
 
     console.log(`${config.getSheetLabel()} | sheet registered ✅`);
 });
-
