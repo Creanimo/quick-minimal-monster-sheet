@@ -4,12 +4,12 @@ import { BaseUIHandler } from './base-handler.mjs';
  * Handles visual health bar updates
  * Updates the width of the health bar based on percentage
  */
-export class HealthBarHandler extends BaseUIHandler {
+export class HealthbarHandler extends BaseUIHandler {
     attach(root, context, sheet) {
         const healthBar = root.querySelector(".qmms5e__health__bar__fill");
 
         if (!healthBar) {
-            console.warn("[HealthBarHandler] Health bar element not found");
+            console.warn("[HealthbarHandler] Health bar element not found");
             return;
         }
 

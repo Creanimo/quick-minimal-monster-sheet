@@ -5,10 +5,10 @@ import {AdapterFactory} from "./adapters/adapter-factory.mjs";
 import {QMMSFormProcessor} from "./core/qmms-form-processor.mjs";
 import {
     UIHandlerManager,
-    AutoSaveHandler,
+    AutosaveHandler,
     MathInputHandler,
     EditorHandler,
-    HealthBarHandler
+    HealthbarHandler
 } from "./ui/index.mjs";
 
 export function createQuickMinimalMonsterSheetClass({
@@ -28,10 +28,10 @@ export function createQuickMinimalMonsterSheetClass({
 
     // Create UI handler manager
     const uiManager = new UIHandlerManager();
-    uiManager.register(new AutoSaveHandler(sheetConfig));
+    uiManager.register(new AutosaveHandler(sheetConfig));
     uiManager.register(new MathInputHandler(sheetConfig));
     uiManager.register(new EditorHandler(sheetConfig));
-    uiManager.register(new HealthBarHandler(sheetConfig));
+    uiManager.register(new HealthbarHandler(sheetConfig));
 
     const Base = HandlebarsApplicationMixin(ActorSheetV2);
 

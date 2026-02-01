@@ -4,7 +4,7 @@ import { BaseUIHandler } from './base-handler.mjs';
  * Handles auto-save behavior for simple input fields
  * Submits form on change or blur
  */
-export class AutoSaveHandler extends BaseUIHandler {
+export class AutosaveHandler extends BaseUIHandler {
     attach(root, context, sheet) {
         const fields = this.config.getAutoSaveFields();
         const selector = fields.join(",");
