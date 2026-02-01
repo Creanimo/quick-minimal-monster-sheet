@@ -2,6 +2,7 @@ import {transformInlineRollShorthands} from "./utils/shorthand-processing.mjs";
 import {evalAddSubSafe} from "./utils/math-evaluator.mjs";
 import {enrichActorBiography} from "./utils/text-enricher.mjs";
 import {AdapterFactory} from "./adapters/adapter-factory.mjs";
+import {QMMSFormProcessor} from "./core/qmms-form-processor.mjs";
 
 export function createQuickMinimalMonsterSheetClass({
                                                         moduleId = "quick-minimal-monster-sheet-for-5e",
@@ -94,58 +95,14 @@ export function createQuickMinimalMonsterSheetClass({
          * Custom form submission handler
          */
         async _onSubmitForm(event, form, formData) {
-            console.log("[QMMS] 📝 Form submitted!");
+            console.debug("[QMMS] 📝 Form submitted!");
 
-            const data = formData?.object ?? formData;
-
-            console.log("[QMMS] 🔍 Raw form data:", data);
-
-            // Get biography field path from config
-            const biographyPath = sheetConfig.getBiographyFieldName();
-            const biographyRaw = foundry.utils.getProperty(data, biographyPath);
-
-            console.log("[QMMS] 🔍 Biography raw value:", biographyRaw);
-
-            // Transform inline roll shorthands in biography
-            if (biographyRaw !== undefined && biographyRaw !== "") {
-                const transformed = transformInlineRollShorthands(biographyRaw);
-
-                if (transformed !== biographyRaw) {
-                    if (data[biographyPath] !== undefined) {
-                        data[biographyPath] = transformed;
-                    } else if (data.system?.details?.biography) {
-                        data.system.details.biography.value = transformed;
-                    }
-                    console.log("[QMMS] ✅ Inline rolls transformed:", biographyRaw, '→', transformed);
-                }
-            }
-
-            // Create adapter for this actor
+            // Create adapter and form processor
             const adapter = AdapterFactory.createAdapter(this.document, sheetConfig);
+            const processor = new QMMSFormProcessor(adapter, sheetConfig);
 
-            // Validate data before submission
-            const validation = adapter.validateFormData(data);
-            console.log("[QMMS] 🔍 Validation result:", validation);
-
-            if (!validation.valid) {
-                console.error(`Form validation failed:`, validation.errors);
-                ui.notifications?.error(`Invalid data: ${validation.errors.join(", ")}`);
-                return;
-            }
-
-            const updateData = adapter.prepareUpdateData(data);
-
-            console.log("[QMMS] 🔍 Prepared update data:", updateData);
-
-            // Don't update if no data
-            if (!Object.keys(updateData).length) {
-                console.log("[QMMS] ⚠️ No update data, skipping");
-                return;
-            }
-
-            console.log("[QMMS] 📤 Calling actor.update");
-            await this.document.update(updateData);
-            console.log("[QMMS] ✅ Actor updated");
+            // Process the form submission
+            await processor.process(this.document, formData);
         }
 
         _onRender(context, options) {
