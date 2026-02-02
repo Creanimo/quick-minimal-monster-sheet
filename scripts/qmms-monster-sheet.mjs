@@ -2,10 +2,10 @@ import {transformInlineRollShorthands} from "./utils/shorthand-processing.mjs";
 import {evalAddSubSafe} from "./utils/math-evaluator.mjs";
 import {enrichActorBiography} from "./utils/text-enricher.mjs";
 import {AdapterFactory} from "./adapters/adapter-factory.mjs";
-import {QMMSFormProcessor} from "./core/qmms-form-processor.mjs";
+import {QMMSFormProcessor, QMMSContextBuilder} from "./core/index.mjs";  // ← UPDATE THIS
 import {
     UIHandlerManager,
-    AutosaveHandler,
+    AutoSaveHandler,
     MathInputHandler,
     EditorHandler,
     HealthbarHandler
@@ -74,46 +74,13 @@ export function createQuickMinimalMonsterSheetClass({
 
         async _prepareContext(options) {
             const context = await super._prepareContext(options);
-            const actor = this.document;
 
-            const adapter = AdapterFactory.createAdapter(actor, sheetConfig);
-            console.log("[QMMS] Adapter paths:", adapter.paths);
-            console.log("[QMMS] Actor system data:", actor.system);
-            console.log("[QMMS} Adapter reads:", {
-                defense: adapter.getDefenseValue(),
-                hpValue: adapter.getHealthValue(),
-                hpMax: adapter.getHealthMax()
-            });
+            console.debug("[QMMS] Preparing context");
 
-            // Get data through adapter
-            const biography = adapter.getBiography();
+            const adapter = AdapterFactory.createAdapter(this.document, sheetConfig);
+            const contextBuilder = new QMMSContextBuilder(adapter, sheetConfig);
 
-            // Enrich biography using utility
-            let biographyEnriched = biography;
-            try {
-                biographyEnriched = await enrichActorBiography(actor, biography);
-            } catch (err) {
-                console.warn(`${moduleId} | Biography enrichment failed`, err);
-            }
-
-            // Use adapter's prepareSheetContext for structured data
-            const sheetData = await adapter.prepareSheetContext();
-
-            // Build context with semantic naming
-            context.qmms5e = {
-                name: sheetData.name,
-                defense: sheetData.defense,
-                health: sheetData.health,
-                difficulty: sheetData.difficulty,
-                biography,
-                biographyEnriched,
-                // Legacy compatibility (can remove once template is updated)
-                ac: sheetData.defense.value,
-                hp: sheetData.health,
-                cr: sheetData.difficulty.value
-            };
-
-            return context;
+            return await contextBuilder.build(this.document, context);
         }
 
         /**
