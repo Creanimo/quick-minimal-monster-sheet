@@ -1,4 +1,4 @@
-import { BaseUIHandler } from './base-handler.mjs';
+import {BaseUIHandler} from './base-handler.mjs';
 
 /**
  * Handles ProseMirror editor integration
@@ -34,11 +34,18 @@ export class EditorHandler extends BaseUIHandler {
             });
         });
 
-        // Handle editor save event
-        this._addEventListener(pm, "save", () => {
-            console.log("[EditorHandler] Editor saved");
-            sheet.submit({ preventClose: true, preventRender: false });
+// Handle editor save event
+        this._addEventListener(pm, "save", (event) => {
+            console.log("[EditorHandler] Editor save event!");
+            console.log("[EditorHandler] Save event detail:", event.detail);
+            console.log("[EditorHandler] FormData from event:", event.detail?.formData);
+
+            console.log("[EditorHandler] Full form data:", form);
+            console.log("[EditorHandler] ProseMirror value:", pm.value);
+
+            sheet.submit({preventClose: true, preventRender: false});
         });
+
     }
 
     /**
