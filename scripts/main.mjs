@@ -2,12 +2,17 @@ import {createQuickMinimalMonsterSheetClass} from "./qmms-monster-sheet.mjs";
 
 /**
  * System configuration registry
- * Maps system IDs to their configuration classes and templates
  */
 const SYSTEM_CONFIGS = {
     "dnd5e": () => import("./systems/dnd5e.mjs"),
     // "pf2e": () => import("./systems/pf2e.mjs"),
-    // "daggerheart": () => import("./systems/daggerheart.mjs"),
+};
+
+/**
+ * Known config class names for each system
+ */
+const SYSTEM_CONFIG_CLASSES = {
+    "dnd5e": "QMMSDnd5eConfig",
 };
 
 Hooks.once("ready", () => {
@@ -20,14 +25,18 @@ Hooks.once("ready", () => {
         return;
     }
 
-    // Load system configuration dynamically
     SYSTEM_CONFIGS[systemId]().then(module => {
-        const {QMMSSystemConfig, TEMPLATE_PATH} = module;
+        const configClassName = SYSTEM_CONFIG_CLASSES[systemId];
+        const configClass = module[configClassName];
+
+        if (!configClass) {
+            throw new Error(`Config class "${configClassName}" not found in ${systemId} module`);
+        }
 
         // Create configuration instance
-        const config = new QMMSSystemConfig({
+        const config = new configClass({
             moduleId: "quick-minimal-monster-sheet",
-            templatePath: TEMPLATE_PATH
+            templatePath: module.TEMPLATE_PATH
         });
 
         // Create sheet class
@@ -55,3 +64,4 @@ Hooks.once("ready", () => {
         console.error(`QMMS: Failed to load config for ${systemId}:`, err);
     });
 });
+
