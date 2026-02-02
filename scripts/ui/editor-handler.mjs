@@ -42,25 +42,21 @@ export class EditorHandler extends BaseUIHandler {
         this._addEventListener(pm, "save", async () => {
             console.log("[EditorHandler] Editor saved, value:", pm.value);
 
-            // Transform inline rolls directly
             const biographyPath = this.config.getBiographyFieldName();
             const biographyRaw = pm.value;
             const transformed = transformInlineRollShorthands(biographyRaw);
 
-            if (transformed !== biographyRaw) {
-                console.log("[EditorHandler] Transforming:", biographyRaw.slice(0, 50), '→', transformed.slice(0, 50));
+            const valueToSave = transformed !== biographyRaw ? transformed : biographyRaw;
 
-                // Update actor directly
-                await sheet.document.update({
-                    [biographyPath]: transformed
-                });
+            console.log("[EditorHandler] Saving:", valueToSave.slice(0, 50));
 
-                // Trigger re-render to update display
-                sheet.render(false);
-            } else {
-                console.log("[EditorHandler] No transformation needed");
-            }
+            await sheet.document.update({
+                [biographyPath]: valueToSave
+            });
+
+            sheet.render(false);
         }, {once: false});
+
     }
 
     /**
